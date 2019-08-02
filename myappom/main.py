@@ -24,7 +24,6 @@ from bokeh.application.handlers.function import FunctionHandler
 import sklearn
 from sklearn.cluster import DBSCAN
 from sklearn.cluster import KMeans
-import geopandas as gpd
 from bokeh.tile_providers import CARTODBPOSITRON
 
 
