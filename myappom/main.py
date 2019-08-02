@@ -8,7 +8,7 @@ import bokeh
 from bokeh.server.server import Server as server
 from bokeh.io import show, output_notebook
 from bokeh.plotting import figure, show, output_notebook
-from bokeh.tile_providers import Vendors, get_provider
+
 import pandas as pd
 import numpy as np
 from bokeh.models import ColumnDataSource, HoverTool, LassoSelectTool, Label, Title, ZoomInTool, ZoomOutTool
@@ -27,7 +27,7 @@ from sklearn.cluster import KMeans
 import shapely 
 from shapely.geometry import Point
 import geopandas as gpd
-tile_provider = get_provider(Vendors.CARTODBPOSITRON)
+from bokeh.tile_providers import CARTODBPOSITRON
 
 
 # In[53]:
@@ -157,7 +157,7 @@ source_to2 = ColumnDataSource(data = cds_to2)
 
 #рисуем графики
 p1 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_from1)
-p1.add_tile(tile_provider)
+p1.add_tile(CARTODBPOSITRON)
 
 #слой сайтов from
 r1 = p1.circle(x = 'X_from',
@@ -175,7 +175,7 @@ r1 = p1.circle(x = 'X_from',
 
 
 p_to1 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_to1)
-p_to1.add_tile(tile_provider)
+p_to1.add_tile(CARTODBPOSITRON)
 
 t1 = p_to1.circle(x = 'X_to', 
                 y = 'Y_to', 
@@ -209,7 +209,7 @@ lds1=l1.data_source
 
 #рисуем графики
 p2 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_to2)
-p2.add_tile(tile_provider)
+p2.add_tile(CARTODBPOSITRON)
 
 #слой сайтов to
 r2 = p2.circle(x = 'X_to',
@@ -227,7 +227,7 @@ r2 = p2.circle(x = 'X_to',
 
 
 p_from2 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_from2)
-p_from2.add_tile(tile_provider)
+p_from2.add_tile(CARTODBPOSITRON)
 
 t2 = p_from2.circle(x = 'X_from', 
                 y = 'Y_from', 
