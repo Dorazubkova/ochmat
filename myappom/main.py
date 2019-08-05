@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 import bokeh
@@ -27,7 +27,7 @@ from sklearn.cluster import KMeans
 from bokeh.tile_providers import CARTODBPOSITRON
 
 
-# In[3]:
+# In[2]:
 
 
 matrix_base = pd.read_csv(r'myappom/base.csv', encoding='cp1251', sep = ';')
@@ -35,7 +35,7 @@ matrix_2020 = pd.read_csv(r'myappom/2021.csv', encoding='cp1251', sep = ';')
 matrix_2021 = pd.read_csv(r'myappom/2022.csv', encoding='cp1251', sep = ';')
 
 
-# In[54]:
+# In[3]:
 
 
 matrix_base = matrix_base.set_index('zid')
@@ -51,14 +51,14 @@ matrix_2021 = matrix_2021.stack().reset_index()
 matrix_2021.columns = ['site_id_from','site_id_to','value']
 
 
-# In[55]:
+# In[4]:
 
 
 metro = pd.read_csv(r'myappom/metro.csv', encoding='cp1251', sep = ';')
 taz = pd.read_csv(r'myappom/taz.csv', encoding='cp1251', sep = ';')
 
 
-# In[56]:
+# In[5]:
 
 
 matrix_base = pd.merge(matrix_base, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -71,7 +71,7 @@ matrix_base = matrix_base[matrix_base['value'] != 0]
 matrix_base.head()
 
 
-# In[57]:
+# In[6]:
 
 
 matrix_2020 = pd.merge(matrix_2020, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -84,7 +84,7 @@ matrix_2020 = matrix_2020[matrix_2020['value'] != 0]
 matrix_2020.head()
 
 
-# In[58]:
+# In[15]:
 
 
 matrix_2021 = pd.merge(matrix_2021, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -253,12 +253,6 @@ tds_from2 = t_from2.data_source
 lds2=l2.data_source
 
 
-# In[74]:
-
-
-ds2.data
-
-
 # In[78]:
 
 
@@ -417,18 +411,6 @@ def update2(attrname, old, new):
 radio_group2.on_change('active', update2)
 
 
-# In[75]:
-
-
-ds1.data
-
-
-# In[76]:
-
-
-matrix_base.head()
-
-
 # In[69]:
 
 
@@ -489,12 +471,6 @@ def callback1(attrname, old, new):
 source_from1.selected.on_change('indices', callback1)
 
 
-# In[70]:
-
-
-ds2.data
-
-
 # In[71]:
 
 
@@ -504,15 +480,15 @@ def callback2(attrname, old, new):
     print(idx)
     
     if not idx:
-        previous_idx_from([])
+        previous_idx_to([])
     else:
-        previous_idx_from(idx)
+        previous_idx_to(idx)
     
-    print(index_from)
+    print(index_to)
         
-    if index_from[-1] == []:
+    if index_to[-1] == []:
         new_data1, new_data_text1 = clear()  
-        null_selection_from()
+        null_selection_to()
         
     m = radio_group2.active
     print(m)
