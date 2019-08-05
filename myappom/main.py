@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[52]:
+# In[2]:
 
 
 import bokeh
@@ -27,12 +27,12 @@ from sklearn.cluster import KMeans
 from bokeh.tile_providers import CARTODBPOSITRON
 
 
-# In[53]:
+# In[3]:
 
 
-matrix_base = pd.read_excel(r'myappom/Вход_в_метро-base.xlsx', encoding='cp1251')
-matrix_2020 = pd.read_excel(r'myappom/Вход_в_метро-persp2020.xlsx', encoding='cp1251')
-matrix_2021 = pd.read_excel(r'myappom/Вход_в_метро-persp2021.xlsx', encoding='cp1251')
+matrix_base = pd.read_csv(r'myappom/base.csv', encoding='cp1251', sep = ';')
+matrix_2020 = pd.read_csv(r'myappom/2021.csv', encoding='cp1251', sep = ';')
+matrix_2021 = pd.read_csv(r'myappom/2022.csv', encoding='cp1251', sep = ';')
 
 
 # In[54]:
@@ -54,8 +54,8 @@ matrix_2021.columns = ['site_id_from','site_id_to','value']
 # In[55]:
 
 
-metro = pd.read_excel(r'myappom/metro.xlsx', encoding='cp1251')
-taz = pd.read_excel(r'myappom/taz.xlsx', encoding='cp1251')
+metro = pd.read_csv(r'myappom/metro.csv', encoding='cp1251', sep = ';')
+taz = pd.read_csv(r'myappom/taz.csv', encoding='cp1251', sep = ';')
 
 
 # In[56]:
