@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[42]:
 
 
 import bokeh
@@ -27,15 +27,15 @@ from sklearn.cluster import KMeans
 from bokeh.tile_providers import CARTODBPOSITRON
 
 
-# In[2]:
+# In[80]:
 
 
 matrix_base = pd.read_csv(r'myappom/base.csv', encoding='cp1251', sep = ';')
-matrix_2020 = pd.read_csv(r'myappom/2021.csv', encoding='cp1251', sep = ';')
-matrix_2021 = pd.read_csv(r'myappom/2022.csv', encoding='cp1251', sep = ';')
+matrix_2020 = pd.read_csv(r'myappom/2020.csv', encoding='cp1251', sep = ';')
+matrix_2021 = pd.read_csv(r'myappom/2021.csv', encoding='cp1251', sep = ';')
 
 
-# In[3]:
+# In[81]:
 
 
 matrix_base = matrix_base.set_index('zid')
@@ -51,14 +51,14 @@ matrix_2021 = matrix_2021.stack().reset_index()
 matrix_2021.columns = ['site_id_from','site_id_to','value']
 
 
-# In[4]:
+# In[82]:
 
 
 metro = pd.read_csv(r'myappom/metro.csv', encoding='cp1251', sep = ';')
 taz = pd.read_csv(r'myappom/taz.csv', encoding='cp1251', sep = ';')
 
 
-# In[5]:
+# In[83]:
 
 
 matrix_base = pd.merge(matrix_base, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -71,7 +71,13 @@ matrix_base = matrix_base[matrix_base['value'] != 0]
 matrix_base.head()
 
 
-# In[6]:
+# In[84]:
+
+
+len(matrix_base['site_id_from'].unique())
+
+
+# In[85]:
 
 
 matrix_2020 = pd.merge(matrix_2020, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -84,7 +90,13 @@ matrix_2020 = matrix_2020[matrix_2020['value'] != 0]
 matrix_2020.head()
 
 
-# In[15]:
+# In[86]:
+
+
+len(matrix_2020['site_id_from'].unique())
+
+
+# In[87]:
 
 
 matrix_2021 = pd.merge(matrix_2021, taz, how='inner', left_on = ['site_id_from'], right_on = ['taz_id']).rename(
@@ -97,7 +109,13 @@ matrix_2021 = matrix_2021[matrix_2021['value'] != 0]
 matrix_2021.head()
 
 
-# In[59]:
+# In[88]:
+
+
+len(matrix_2021['site_id_from'].unique())
+
+
+# In[24]:
 
 
 hover_from1 = HoverTool(tooltips=[("taz", "@site_id_from")], names=["label_from"])
@@ -119,7 +137,13 @@ toolList_from2 = [lasso_from2,  'reset',  'pan','wheel_zoom', hover_from2]
 toolList_to2 = [lasso_to2,  'reset',  'pan', 'wheel_zoom', hover_to2]
 
 
-# In[60]:
+# In[ ]:
+
+
+
+
+
+# In[25]:
 
 
 cds_from1 = dict(X_from=[], 
@@ -149,7 +173,7 @@ source_from2 = ColumnDataSource(data = cds_from2)
 source_to2 = ColumnDataSource(data = cds_to2)
 
 
-# In[61]:
+# In[26]:
 
 
 #рисуем графики
@@ -168,7 +192,7 @@ r1 = p1.circle(x = 'X_from',
         nonselection_fill_color='gray')
 
 
-# In[62]:
+# In[27]:
 
 
 p_to1 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_to1)
@@ -201,7 +225,7 @@ tds_to1 = t_to1.data_source
 lds1=l1.data_source
 
 
-# In[63]:
+# In[28]:
 
 
 #рисуем графики
@@ -220,7 +244,7 @@ r2 = p2.circle(x = 'X_to',
         nonselection_fill_color='gray')
 
 
-# In[64]:
+# In[29]:
 
 
 p_from2 = figure(x_range=(3948598, 4354485), y_range=(7307581, 7725406), x_axis_type="mercator", y_axis_type="mercator", tools=toolList_from2)
@@ -253,7 +277,7 @@ tds_from2 = t_from2.data_source
 lds2=l2.data_source
 
 
-# In[78]:
+# In[30]:
 
 
 radio_group1 = RadioGroup(
@@ -263,13 +287,13 @@ radio_group2 = RadioGroup(
         labels=["matrix_base", "matrix_2020", "matrix_2021"]) #только 1 вариант
 
 
-# In[79]:
+# In[31]:
 
 
 show(radio_group1)
 
 
-# In[66]:
+# In[32]:
 
 
 prev_matrix_from = ['matrix']
@@ -315,7 +339,7 @@ def previous_idx_to(idx):
     return index_to
 
 
-# In[67]:
+# In[33]:
 
 
 def update1(attrname, old, new):
@@ -361,7 +385,7 @@ def update1(attrname, old, new):
 radio_group1.on_change('active', update1)
 
 
-# In[68]:
+# In[34]:
 
 
 def update2(attrname, old, new):
@@ -411,7 +435,7 @@ def update2(attrname, old, new):
 radio_group2.on_change('active', update2)
 
 
-# In[69]:
+# In[35]:
 
 
 def callback1(attrname, old, new): 
@@ -471,7 +495,7 @@ def callback1(attrname, old, new):
 source_from1.selected.on_change('indices', callback1)
 
 
-# In[71]:
+# In[36]:
 
 
 def callback2(attrname, old, new): 
@@ -510,7 +534,7 @@ def callback2(attrname, old, new):
     df1['value_sum'] = df1.groupby(['X_from','Y_from'])['value'].transform(sum)
     df1 = df1.drop_duplicates(['X_from','Y_from'])
     
-    print(df1.columns) 
+    print(df1) 
     
     new_data1 = dict()
 
@@ -521,17 +545,17 @@ def callback2(attrname, old, new):
     
     print (new_data1)
     
-#     new_data_text1 = dict()
-#     new_data_text1['x'] = list(df1['X_from'])
-#     new_data_text1['y'] = list(df1['Y_from'])
-#     new_data_text1['text_0'] = list(round(df1['value_sum']))
-#     new_data_text1['text'] = [x if x != 0 else None for x in new_data_text1['text_0']]
-#     lds2.data = new_data_text1
+    new_data_text1 = dict()
+    new_data_text1['x'] = list(df1['X_from'])
+    new_data_text1['y'] = list(df1['Y_from'])
+    new_data_text1['text_0'] = list(round(df1['value_sum']))
+    new_data_text1['text'] = [x if x != 0 else None for x in new_data_text1['text_0']]
+    lds2.data = new_data_text1
           
 source_to2.selected.on_change('indices', callback2)
 
 
-# In[72]:
+# In[37]:
 
 
 layout1 = layout.row(p1, p_to1)
