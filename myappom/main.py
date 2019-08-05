@@ -519,12 +519,14 @@ def callback2(attrname, old, new):
     new_data1['size'] = list(df1['value_sum']/10)
     tds_from2.data = new_data1  
     
-    new_data_text1 = dict()
-    new_data_text1['x'] = list(df1['X_from'])
-    new_data_text1['y'] = list(df1['Y_from'])
-    new_data_text1['text_0'] = list(round(df1['value_sum']))
-    new_data_text1['text'] = [x if x != 0 else None for x in new_data_text1['text_0']]
-    lds2.data = new_data_text1
+    print (new_data1)
+    
+#     new_data_text1 = dict()
+#     new_data_text1['x'] = list(df1['X_from'])
+#     new_data_text1['y'] = list(df1['Y_from'])
+#     new_data_text1['text_0'] = list(round(df1['value_sum']))
+#     new_data_text1['text'] = [x if x != 0 else None for x in new_data_text1['text_0']]
+#     lds2.data = new_data_text1
           
 source_to2.selected.on_change('indices', callback2)
 
